@@ -221,7 +221,7 @@ const Portfolio: React.FC = () => {
       setSelectedProject(null);
       setIsClosing(false);
       setCurrentImageIndex(0);
-    }, 500); // Slightly longer for smoother fade-out
+    }, 500); 
   }, []);
 
   const handleNextProject = useCallback(() => {
@@ -253,35 +253,14 @@ const Portfolio: React.FC = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedProject) return;
-      
       switch (e.key) {
-        case 'Escape':
-          handleClose();
-          break;
-        case 'ArrowRight':
-          if (carouselImages.length > 1) {
-            handleNextImage();
-          } else {
-            handleNextProject();
-          }
-          break;
-        case 'ArrowLeft':
-          if (carouselImages.length > 1) {
-            handlePrevImage();
-          } else {
-            handlePrevProject();
-          }
-          break;
+        case 'Escape': handleClose(); break;
+        case 'ArrowRight': carouselImages.length > 1 ? handleNextImage() : handleNextProject(); break;
+        case 'ArrowLeft': carouselImages.length > 1 ? handlePrevImage() : handlePrevProject(); break;
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
+    document.body.style.overflow = selectedProject ? 'hidden' : 'unset';
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
@@ -303,7 +282,7 @@ const Portfolio: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`h-10 px-6 rounded-full text-sm font-semibold transition-all duration-500 ${
+                className={`btn-md rounded-full text-sm font-semibold transition-all duration-500 ${
                   filter === cat ? 'bg-cyan-500 text-white shadow-xl scale-105' : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
@@ -326,123 +305,59 @@ const Portfolio: React.FC = () => {
 
       {selectedProject && (
         <div className={`fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6 transition-all duration-500 ease-in-out ${isClosing ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-          {/* Enhanced Overlay */}
-          <div 
-            className={`absolute inset-0 bg-slate-950/80 backdrop-blur-2xl transition-opacity duration-500 ease-in-out ${isClosing ? 'opacity-0' : 'opacity-100'}`} 
-            onClick={handleClose} 
-          />
+          <div className={`absolute inset-0 bg-slate-950/80 backdrop-blur-2xl transition-opacity duration-500 ease-in-out ${isClosing ? 'opacity-0' : 'opacity-100'}`} onClick={handleClose} />
           
-          {/* Main Modal Container with Spring-like Opening */}
           <div className={`modal-container relative bg-slate-900 w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-[3.5rem] border border-slate-800/60 shadow-[0_0_100px_rgba(0,0,0,0.5)] no-scrollbar transition-all duration-500 transform ${
             isClosing ? 'scale-90 translate-y-20 opacity-0 blur-md' : 'scale-100 translate-y-0 opacity-100 blur-0 modal-spring'
           }`}>
-            
-            {/* Close Button entrance */}
-            <button 
-              onClick={handleClose} 
-              className={`fixed top-8 right-8 z-[1100] bg-white text-slate-950 w-12 h-12 flex items-center justify-center rounded-full border-2 border-slate-950/10 shadow-2xl transition-all hover:bg-cyan-400 hover:scale-110 active:scale-90 group delay-300 ${isClosing ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}
-            >
+            <button onClick={handleClose} className={`fixed top-8 right-8 z-[1100] bg-white text-slate-950 w-12 h-12 flex items-center justify-center rounded-full border-2 border-slate-950/10 shadow-2xl transition-all hover:bg-cyan-400 hover:scale-110 active:scale-90 group delay-300 ${isClosing ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
               <X className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
             </button>
 
             <div className="flex flex-col lg:flex-row min-h-full">
-              {/* Carousel Section */}
               <div className="lg:w-3/5 bg-slate-950 min-h-[40vh] md:min-h-[50vh] relative group/carousel overflow-hidden">
                 <div className="w-full h-full relative">
                   <div className="absolute inset-0 bg-slate-900 animate-pulse-slow pointer-events-none" />
-                  <img 
-                    key={selectedProject.id + currentImageIndex}
-                    src={carouselImages[currentImageIndex]} 
-                    className={`w-full h-full object-cover object-top transition-all duration-700 ease-out animate-fade-in-scale`} 
-                    alt={`${selectedProject.title} view ${currentImageIndex + 1}`} 
-                  />
-                  
+                  <img key={selectedProject.id + currentImageIndex} src={carouselImages[currentImageIndex]} className={`w-full h-full object-cover object-top transition-all duration-700 ease-out animate-fade-in-scale`} alt={`${selectedProject.title} view ${currentImageIndex + 1}`} />
                   {carouselImages.length > 1 && (
                     <>
-                      <button 
-                        onClick={handlePrevImage}
-                        className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/60 backdrop-blur-xl border border-white/10 text-white flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-cyan-500 hover:text-slate-950 active:scale-90"
-                      >
-                        <ChevronLeft className="w-6 h-6" />
-                      </button>
-                      <button 
-                        onClick={handleNextImage}
-                        className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/60 backdrop-blur-xl border border-white/10 text-white flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-cyan-500 hover:text-slate-950 active:scale-90"
-                      >
-                        <ChevronRight className="w-6 h-6" />
-                      </button>
+                      <button onClick={handlePrevImage} className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/60 backdrop-blur-xl border border-white/10 text-white flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-cyan-500 hover:text-slate-950 active:scale-90"><ChevronLeft className="w-6 h-6" /></button>
+                      <button onClick={handleNextImage} className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-slate-900/60 backdrop-blur-xl border border-white/10 text-white flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-all hover:bg-cyan-500 hover:text-slate-950 active:scale-90"><ChevronRight className="w-6 h-6" /></button>
                     </>
                   )}
-
                   <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
                     {carouselImages.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }}
-                        className={`h-1.5 rounded-full transition-all duration-500 ${i === currentImageIndex ? 'w-8 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]' : 'w-1.5 bg-white/20 hover:bg-white/40'}`}
-                      />
+                      <button key={i} onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i); }} className={`h-1.5 rounded-full transition-all duration-500 ${i === currentImageIndex ? 'w-8 bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.5)]' : 'w-1.5 bg-white/20 hover:bg-white/40'}`} />
                     ))}
                   </div>
                 </div>
               </div>
 
-              {/* Text Content Staggered Entrance */}
               <div className="lg:w-2/5 p-10 lg:p-14 flex flex-col bg-slate-900/40 relative">
                 <div className={`content-entrance transition-all duration-700 delay-100 ${isClosing ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-6">
-                    {selectedProject.category}
-                  </div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-6">{selectedProject.category}</div>
                   <h2 className="font-display text-4xl font-bold text-white mb-6 leading-tight tracking-tight">{selectedProject.title}</h2>
                   <div className="space-y-6 mb-12">
                     <p className="text-slate-300 text-base leading-relaxed">{selectedProject.description}</p>
                     <div className="h-px bg-slate-800/50 w-full" />
                     <div className="grid grid-cols-2 gap-6">
-                      <div>
-                        <span className="block text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">Expertise</span>
-                        <span className="text-white font-medium text-sm">{selectedProject.category}</span>
-                      </div>
-                      <div>
-                        <span className="block text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">Experience</span>
-                        <span className="text-white font-medium text-sm">7+ Years</span>
-                      </div>
+                      <div><span className="block text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">Expertise</span><span className="text-white font-medium text-sm">{selectedProject.category}</span></div>
+                      <div><span className="block text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-1">Experience</span><span className="text-white font-medium text-sm">7+ Years</span></div>
                     </div>
                   </div>
                 </div>
                 
                 <div className={`mt-auto space-y-4 transition-all duration-700 delay-200 ${isClosing ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
                   {selectedProject.liveUrl && (
-                    <a 
-                      href={selectedProject.liveUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="btn-md w-full bg-white text-slate-950 font-bold rounded-2xl hover:bg-cyan-400 hover:text-slate-950 transition-all flex items-center justify-center gap-2 group shadow-xl active:scale-[0.98]"
-                    >
-                      Visit Website 
-                      <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-md w-full bg-white text-slate-950 font-bold rounded-2xl hover:bg-cyan-400 hover:text-slate-950 transition-all flex items-center justify-center gap-2 group shadow-xl active:scale-[0.98]">
+                      Visit Website <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </a>
                   )}
-                  
                   <div className="grid grid-cols-2 gap-4 mt-6">
-                    <button 
-                      onClick={handlePrevProject}
-                      className="flex items-center justify-center gap-2 p-3 bg-slate-800/30 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-800 transition-all text-xs font-bold border border-slate-700/50"
-                    >
-                      <ArrowLeft className="w-4 h-4" /> Previous
-                    </button>
-                    <button 
-                      onClick={handleNextProject}
-                      className="flex items-center justify-center gap-2 p-3 bg-slate-800/30 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-800 transition-all text-xs font-bold border border-slate-700/50"
-                    >
-                      Next <ArrowRight className="w-4 h-4" />
-                    </button>
+                    <button onClick={handlePrevProject} className="btn-md bg-slate-800/30 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-800 transition-all text-xs font-bold border border-slate-700/50"><ArrowLeft className="w-4 h-4" /> Previous</button>
+                    <button onClick={handleNextProject} className="btn-md bg-slate-800/30 rounded-2xl text-slate-400 hover:text-white hover:bg-slate-800 transition-all text-xs font-bold border border-slate-700/50">Next <ArrowRight className="w-4 h-4" /></button>
                   </div>
-
-                  <button 
-                    onClick={handleClose}
-                    className="w-full py-4 text-slate-500 hover:text-white transition-colors text-[10px] font-bold tracking-[0.2em] uppercase mt-2"
-                  >
-                    Close Project
-                  </button>
+                  <button onClick={handleClose} className="w-full py-4 text-slate-500 hover:text-white transition-colors text-[10px] font-bold tracking-[0.2em] uppercase mt-2">Close Project</button>
                 </div>
               </div>
             </div>
@@ -450,30 +365,13 @@ const Portfolio: React.FC = () => {
         </div>
       )}
       <style>{`
-        @keyframes modalSpring {
-          0% { transform: scale(0.9) translateY(40px); opacity: 0; filter: blur(10px); }
-          100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
-        }
-        @keyframes fadeInScale {
-          0% { transform: scale(1.05); opacity: 0; }
-          100% { transform: scale(1); opacity: 1; }
-        }
-        @keyframes pulseSlow {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.8; }
-        }
-        .modal-spring {
-          animation: modalSpring 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        .animate-fade-in-scale {
-          animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .animate-pulse-slow {
-          animation: pulseSlow 3s ease-in-out infinite;
-        }
-        .modal-container::-webkit-scrollbar {
-          display: none;
-        }
+        @keyframes modalSpring { 0% { transform: scale(0.9) translateY(40px); opacity: 0; filter: blur(10px); } 100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); } }
+        @keyframes fadeInScale { 0% { transform: scale(1.05); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes pulseSlow { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+        .modal-spring { animation: modalSpring 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+        .animate-fade-in-scale { animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-pulse-slow { animation: pulseSlow 3s ease-in-out infinite; }
+        .modal-container::-webkit-scrollbar { display: none; }
       `}</style>
     </section>
   );

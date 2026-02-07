@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowRight, Download, Sparkles, ChevronLeft, ChevronRight, Quote, Facebook, Linkedin, Instagram, MessageCircle } from 'lucide-react';
 
+// Updated to your hosted image link
+const PROFILE_IMAGE_URL = "https://indudhargavasi.in/assets/profileimage.png";
+
 const testimonials = [
   {
     quote: "Indudhar delivered a website that exceeded our expectations. Truly a visionary in digital craft.",
@@ -76,10 +79,10 @@ const Hero: React.FC = () => {
       <div className="absolute top-1/4 -left-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[120px]" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]" />
       
-      {/* Subtle Grid for Texture */}
+      {/* Subtle Grid */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#38bdf8 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
 
-      {/* Floating Social Dock - Creative placement */}
+      {/* Floating Social Dock */}
       <div className="absolute left-6 top-1/2 -translate-y-1/2 z-50 hidden xl:flex flex-col gap-4 social-dock-in">
         <div className="w-px h-20 bg-gradient-to-b from-transparent via-slate-700 to-slate-700 mx-auto" />
         {socialLinks.map((social, idx) => (
@@ -103,7 +106,6 @@ const Hero: React.FC = () => {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
-          {/* Left Column: Bio & Intro */}
           <div className="text-left order-2 lg:order-1 hero-fade-in lg:pl-4">
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700/50 text-cyan-400 text-[10px] font-bold uppercase tracking-[0.2em] mb-10">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
@@ -119,7 +121,6 @@ const Hero: React.FC = () => {
               A specialized <span className="text-white font-semibold">Creative Technologist</span> with 7+ years of experience in turning complex problems into elegant digital solutions through code and design.
             </p>
 
-            {/* Testimonial Slider */}
             <div className="mb-10 max-w-lg relative group">
               <div className="h-[100px] flex flex-col justify-center">
                 <div className={`transition-all duration-400 ease-out flex gap-4 ${isTransitioning ? 'opacity-0 -translate-y-2' : 'opacity-100 translate-y-0'}`}>
@@ -134,29 +135,6 @@ const Hero: React.FC = () => {
                       <span className="text-cyan-400 text-[10px] font-bold uppercase tracking-widest">{testimonials[currentTestimonial].company}</span>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Slider Controls */}
-              <div className="absolute -left-12 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button onClick={prevTestimonial} className="p-2 text-slate-500 hover:text-cyan-400 transition-colors">
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button onClick={nextTestimonial} className="p-2 text-slate-500 hover:text-cyan-400 transition-colors">
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-              
-              {/* Mobile/Small Screen Controls */}
-              <div className="flex items-center gap-4 mt-4 xl:hidden">
-                <div className="flex gap-1">
-                  {testimonials.map((_, i) => (
-                    <div key={i} className={`h-1 rounded-full transition-all duration-300 ${i === currentTestimonial ? 'w-4 bg-cyan-400' : 'w-1 bg-slate-800'}`} />
-                  ))}
-                </div>
-                <div className="flex gap-2">
-                  <button onClick={prevTestimonial} className="text-slate-500 hover:text-white"><ChevronLeft className="w-4 h-4" /></button>
-                  <button onClick={nextTestimonial} className="text-slate-500 hover:text-white"><ChevronRight className="w-4 h-4" /></button>
                 </div>
               </div>
             </div>
@@ -177,21 +155,6 @@ const Hero: React.FC = () => {
               </button>
             </div>
 
-            {/* Mobile Social Icons - Creative Grid */}
-            <div className="flex xl:hidden gap-4 mt-10">
-              {socialLinks.map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-800/50 border border-slate-700 text-slate-400 hover:text-cyan-400 transition-colors"
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-
             <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-8 border-t border-slate-800/50 pt-10">
               {[
                 { label: 'Experience', value: '7+ Years' },
@@ -207,27 +170,21 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Original Photo Container */}
           <div className="relative order-1 lg:order-2 flex justify-center lg:justify-end z-10 hero-image-in">
             <div className="relative w-full max-w-[480px] aspect-[4/5.5] group">
-              
-              {/* Outer Glow */}
               <div className="absolute -inset-10 bg-gradient-to-tr from-blue-500/20 to-indigo-600/10 rounded-[5rem] blur-[80px] opacity-60" />
               
-              {/* Main Image Frame - Using high-quality Unsplash image for now */}
               <div className="relative h-full w-full rounded-[4rem] border border-slate-700/50 overflow-hidden bg-slate-900 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.8)]">
                 <img 
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800" 
+                  src={PROFILE_IMAGE_URL} 
                   alt="Indudhar Gavasi"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                   loading="eager"
                   decoding="async"
                 />
                 
-                {/* Minimal Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-40" />
                 
-                {/* Floating Info Tag */}
                 <div className="absolute bottom-10 left-8 right-8 p-6 bg-slate-950/80 backdrop-blur-xl border border-white/10 rounded-[2.5rem] shadow-2xl">
                    <div className="flex items-center gap-4">
                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
@@ -241,12 +198,10 @@ const Hero: React.FC = () => {
                 </div>
               </div>
 
-              {/* Minimal Corner Accents */}
               <div className="absolute -top-4 -right-4 w-40 h-40 border-t-4 border-r-4 border-blue-500/20 rounded-tr-[5rem] pointer-events-none" />
               <div className="absolute -bottom-4 -left-4 w-40 h-40 border-b-4 border-l-4 border-indigo-500/20 rounded-bl-[5rem] pointer-events-none" />
             </div>
           </div>
-
         </div>
       </div>
       <style>{`
@@ -262,15 +217,9 @@ const Hero: React.FC = () => {
           from { opacity: 0; transform: translate(-20px, -50%); }
           to { opacity: 1; transform: translate(0, -50%); }
         }
-        .hero-fade-in {
-          animation: heroFadeIn 1s ease-out forwards;
-        }
-        .hero-image-in {
-          animation: heroImageIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .social-dock-in {
-          animation: socialDockIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        .hero-fade-in { animation: heroFadeIn 1s ease-out forwards; }
+        .hero-image-in { animation: heroImageIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .social-dock-in { animation: socialDockIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       `}</style>
     </section>
   );

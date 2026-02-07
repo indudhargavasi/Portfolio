@@ -66,7 +66,7 @@ const Navigation: React.FC = () => {
           ))}
           <button 
             onClick={(e) => scrollToSection(e, 'contact')}
-            className="h-12 px-8 bg-white text-slate-950 font-bold rounded-full text-sm hover:bg-cyan-400 transition-all active:scale-95 shadow-xl shadow-white/5"
+            className="btn-md bg-white text-slate-950 font-bold rounded-full text-sm hover:bg-cyan-400 transition-all active:scale-95 shadow-xl shadow-white/5"
           >
             Let's Talk
           </button>
@@ -96,7 +96,7 @@ const Navigation: React.FC = () => {
         ))}
         <button 
           onClick={(e) => scrollToSection(e, 'contact')}
-          className="w-full h-16 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-2xl text-lg active:scale-[0.98] shadow-2xl shadow-cyan-500/20"
+          className="btn-lg w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-2xl text-lg active:scale-[0.98] shadow-2xl shadow-cyan-500/20"
         >
           Get In Touch
         </button>
