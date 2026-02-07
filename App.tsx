@@ -7,22 +7,21 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AIChat from './components/AIChat';
 
-const ScrollProgress = ({ scrollContainerRef }: { scrollContainerRef: React.RefObject<HTMLDivElement | null> }) => {
+const ScrollProgress = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
     const handleScroll = () => {
-      const totalHeight = container.scrollHeight - container.clientHeight;
-      const currentScroll = container.scrollTop;
-      setProgress((currentScroll / totalHeight) * 100);
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const currentScroll = window.scrollY;
+      const calcProgress = (currentScroll / totalHeight) * 100;
+      setProgress(Math.min(100, Math.max(0, calcProgress)));
     };
 
-    container.addEventListener('scroll', handleScroll);
-    return () => container.removeEventListener('scroll', handleScroll);
-  }, [scrollContainerRef]);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial call
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="fixed top-0 left-0 w-full h-1 z-[200]">
@@ -72,13 +71,13 @@ const DotNavigation = ({ activeSection }: { activeSection: string }) => {
 };
 
 function App() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
     const observerOptions = {
-      root: containerRef.current,
-      threshold: 0.5,
+      root: null,
+      threshold: 0.1, // Reduced threshold for better mobile detection
+      rootMargin: '0px 0px -50px 0px' // Trigger slightly before it enters fully
     };
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
@@ -100,12 +99,12 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-slate-900 selection:bg-cyan-500/30 selection:text-cyan-200 h-screen overflow-hidden">
-      <ScrollProgress scrollContainerRef={containerRef} />
+    <div className="bg-slate-900 selection:bg-cyan-500/30 selection:text-cyan-200">
+      <ScrollProgress />
       <Navigation />
       <DotNavigation activeSection={activeSection} />
       
-      <div ref={containerRef} className="snap-container no-scrollbar md:block">
+      <div className="snap-container">
         <section id="about" className="snap-section">
           <Hero />
         </section>

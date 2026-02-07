@@ -36,7 +36,7 @@ const PortfolioCard: React.FC<{ project: Project; onClick: () => void }> = ({ pr
       className="group relative overflow-hidden rounded-[2.5rem] bg-slate-900 border border-slate-800/50 shadow-xl cursor-pointer transition-all duration-500 ease-out isolation-auto"
       style={{
         transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) scale3d(1.02, 1.02, 1.02)`,
-        willChange: 'transform',
+        willChange: 'transform, opacity',
         WebkitMaskImage: '-webkit-radial-gradient(white, black)',
         backfaceVisibility: 'hidden',
       }}
@@ -303,7 +303,7 @@ const Portfolio: React.FC = () => {
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`btn-filter rounded-full text-sm font-semibold transition-all duration-500 ${
+                className={`h-10 px-6 rounded-full text-sm font-semibold transition-all duration-500 ${
                   filter === cat ? 'bg-cyan-500 text-white shadow-xl scale-105' : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
                 }`}
               >
@@ -313,7 +313,7 @@ const Portfolio: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 min-h-[400px]">
           {filteredProjects.map((project) => (
             <PortfolioCard 
               key={project.id} 

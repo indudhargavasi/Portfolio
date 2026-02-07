@@ -41,19 +41,14 @@
         background-color: #0f172a;
         color: #f8fafc;
         margin: 0;
-        overflow: hidden; 
       }
 
       .snap-container {
-        height: 100vh;
-        overflow-y: auto;
-        scroll-snap-type: y mandatory;
+        position: relative;
         scroll-behavior: smooth;
       }
 
       .snap-section {
-        scroll-snap-align: start;
-        scroll-snap-stop: always;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -63,18 +58,34 @@
       
       .btn-lg {
         height: 56px !important;
-        min-width: 200px !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
         padding-left: 32px !important;
         padding-right: 32px !important;
+        white-space: nowrap !important;
+      }
+
+      .btn-md {
+        height: 48px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+        white-space: nowrap !important;
+      }
+
+      @media (min-width: 640px) {
+        .btn-lg { min-width: 200px !important; }
+        .btn-md { min-width: 160px !important; }
       }
 
       .reveal {
         opacity: 0;
         transform: translateY(30px);
         transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: transform, opacity;
       }
 
       .reveal.active {
@@ -82,17 +93,17 @@
         transform: translateY(0);
       }
 
-      .snap-container::-webkit-scrollbar {
-        width: 6px;
+      html::-webkit-scrollbar {
+        width: 8px;
       }
-      .snap-container::-webkit-scrollbar-track {
+      html::-webkit-scrollbar-track {
         background: #0f172a;
       }
-      .snap-container::-webkit-scrollbar-thumb {
+      html::-webkit-scrollbar-thumb {
         background: #334155;
         border-radius: 10px;
       }
-      .snap-container::-webkit-scrollbar-thumb:hover {
+      html::-webkit-scrollbar-thumb:hover {
         background: #38bdf8;
       }
 
@@ -118,7 +129,7 @@
 </head>
   <body>
     <div id="root"></div>
-    <!-- Added missing entry point script -->
+    <!-- Entry point script -->
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>

@@ -6,15 +6,12 @@ const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const container = document.querySelector('.snap-container');
-    if (!container) return;
-
     const handleScroll = () => {
-      setIsScrolled(container.scrollTop > 20);
+      setIsScrolled(window.scrollY > 20);
     };
     
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    return () => container.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (e: React.MouseEvent, id: string) => {
@@ -69,7 +66,7 @@ const Navigation: React.FC = () => {
           ))}
           <button 
             onClick={(e) => scrollToSection(e, 'contact')}
-            className="h-11 px-7 bg-white text-slate-950 font-bold rounded-full text-sm hover:bg-cyan-400 transition-all active:scale-95 shadow-xl shadow-white/5"
+            className="h-12 px-8 bg-white text-slate-950 font-bold rounded-full text-sm hover:bg-cyan-400 transition-all active:scale-95 shadow-xl shadow-white/5"
           >
             Let's Talk
           </button>
