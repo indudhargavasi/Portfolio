@@ -1,3 +1,4 @@
+
 export interface Service {
   id: string;
   title: string;
@@ -18,6 +19,7 @@ export interface Project {
   repoUrl?: string;
 }
 
+// Added ChatMessage interface to fix the 'no exported member' error in components/AIChat.tsx
 export interface ChatMessage {
   role: 'user' | 'model';
   text: string;

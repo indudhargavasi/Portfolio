@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Chat } from "@google/genai";
 
 const INDUDHAR_SYSTEM_INSTRUCTION = `
@@ -20,16 +21,9 @@ Guidelines:
 `;
 
 export const createChatSession = (): Chat => {
-  // Safe check for API Key to prevent blank page on CPanel
-  const apiKey = typeof process !== 'undefined' && process.env ? process.env.API_KEY : undefined;
-
-  if (!apiKey) {
-    console.error("Gemini API Key is missing. Please define process.env.API_KEY or check the HOSTING_GUIDE.md.");
-    // We return a dummy object or let the calling component handle the error
-    throw new Error("API_KEY_MISSING");
-  }
-
-  const ai = new GoogleGenAI({ apiKey });
+  // Use API key directly from environment variables as per guidelines.
+  // We assume process.env.API_KEY is pre-configured and valid.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
   
   return ai.chats.create({
     model: 'gemini-3-flash-preview',

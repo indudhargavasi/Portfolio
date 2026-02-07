@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowRight, Download, Sparkles, ChevronLeft, ChevronRight, Quote, Facebook, Linkedin, Instagram, MessageCircle } from 'lucide-react';
 
-// Updated to your hosted image link
-const PROFILE_IMAGE_URL = "https://indudhargavasi.in/assets/profileimage.png";
+// Using a relative path which is standard for CPanel assets folders
+const PROFILE_IMAGE_URL = "assets/profileimage.png";
 
 const testimonials = [
   {

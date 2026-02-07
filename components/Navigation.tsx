@@ -49,7 +49,9 @@ const Navigation: React.FC = () => {
           </div>
           <div className="flex flex-col text-left">
             <span className="font-display font-bold text-xl text-white tracking-tight leading-tight">Indudhar Gavasi</span>
-            <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-[0.2em] leading-tight">Entrepreneur</span>
+            <div className="mt-1 inline-block border border-cyan-500/60 px-2 py-0.5 rounded-sm">
+              <span className="text-[9px] text-cyan-400 font-bold uppercase tracking-[0.25em] leading-none block">Entrepreneur</span>
+            </div>
           </div>
         </button>
 

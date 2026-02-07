@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import AIChat from './components/AIChat';
 
 const ScrollProgress = () => {
   const [progress, setProgress] = useState(0);
@@ -19,7 +18,7 @@ const ScrollProgress = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial call
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -76,15 +75,14 @@ function App() {
   useEffect(() => {
     const observerOptions = {
       root: null,
-      threshold: 0.1, // Reduced threshold for better mobile detection
-      rootMargin: '0px 0px -50px 0px' // Trigger slightly before it enters fully
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
     };
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setActiveSection(entry.target.id);
-          // Add visible class to children with 'reveal' class
           const reveals = entry.target.querySelectorAll('.reveal');
           reveals.forEach(el => el.classList.add('active'));
         }
@@ -128,8 +126,6 @@ function App() {
           <Footer />
         </section>
       </div>
-
-      <AIChat />
     </div>
   );
 }
