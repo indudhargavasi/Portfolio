@@ -118,7 +118,7 @@ const Hero: React.FC = () => {
             </h1>
 
             <p className="max-w-xl text-lg md:text-xl text-slate-400 mb-8 leading-relaxed">
-              A specialized <span className="text-white font-semibold">Creative Technologist</span> with 7+ years of experience in turning complex problems into elegant digital solutions through code and design.
+              A specialized <span className="text-white font-semibold">Entrepreneur</span> with 7+ years of experience in turning complex problems into elegant digital solutions through code and design.
             </p>
 
             <div className="mb-10 max-w-lg relative group">
@@ -192,7 +192,7 @@ const Hero: React.FC = () => {
                      </div>
                      <div>
                        <span className="block text-white font-bold text-lg leading-tight">Indudhar Gavasi</span>
-                       <span className="block text-cyan-400 text-[10px] uppercase font-bold tracking-[0.2em] mt-1">Lead Creative Tech</span>
+                       <span className="block text-cyan-400 text-[10px] uppercase font-bold tracking-[0.2em] mt-1">Entrepreneur</span>
                      </div>
                    </div>
                 </div>

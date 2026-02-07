@@ -49,7 +49,7 @@ const Navigation: React.FC = () => {
           </div>
           <div className="flex flex-col text-left">
             <span className="font-display font-bold text-xl text-white tracking-tight leading-tight">Indudhar Gavasi</span>
-            <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-[0.2em] leading-tight">Creative Tech</span>
+            <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-[0.2em] leading-tight">Entrepreneur</span>
           </div>
         </button>
 
